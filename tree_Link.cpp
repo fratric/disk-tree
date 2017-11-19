@@ -26,10 +26,13 @@ void Link::List(bool bFollow, bool bRecursive, const std::string & offset, std::
 	}
 }
 
-Link * Link::Parse(rapidjson::Value & json)
+#include <memory>
+
+std::shared_ptr<Link> Link::Parse(rapidjson::Value & json)
 {
 	if (!json.HasMember("name") || !json.HasMember("link"))
 		return nullptr;
 
-	return new Link(json["name"].GetString(), json["link"].GetString());
+	std::shared_ptr<Link> ptr{new Link(json["name"].GetString(), json["link"].GetString())};
+	return ptr;
 }

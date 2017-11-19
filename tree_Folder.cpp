@@ -7,6 +7,8 @@
 #define new DBG_NEW
 #endif
 
+#include <memory>
+
 using namespace tree;
 
 tree::Size Folder::Size(bool bFollow, bool bRecursive) const
@@ -91,7 +93,7 @@ void Folder::Remove(const Node * node)
 	_content.erase(std::remove(_content.begin(), _content.end(), node), _content.end());
 }
 
-Folder * Folder::Parse(rapidjson::Value & json)
+std::shared_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 {
 	Folder * folder = nullptr;
 	rapidjson::Value * content = nullptr;
@@ -115,8 +117,10 @@ Folder * Folder::Parse(rapidjson::Value & json)
 		if (!pNode)
 			return nullptr;
 
-		folder->Insert(pNode);
+		auto *rawNode = pNode.get();
+		folder->Insert(rawNode);
 	}
 
-	return folder;
+	std::shared_ptr<Folder> ptr{folder};
+	return ptr;
 }

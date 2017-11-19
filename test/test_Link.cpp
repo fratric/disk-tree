@@ -17,7 +17,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "link"})"));
 
-		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json) };
+		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json).get() };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -25,7 +25,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"link": ""})"));
 
-		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json) };
+		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json).get() };
 		EXPECT_EQ(ptr.get(), nullptr);
 	}
 
@@ -33,7 +33,7 @@ TEST(Link, Initialization)
 		rapidjson::Document json;
 		EXPECT_TRUE((rapidjson::ParseResult)json.Parse(R"({"name": "link", "link": ""})"));
 
-		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json) };
+		std::unique_ptr<tree::Link> ptr { tree::Link::Parse(json).get() };
 		EXPECT_NE(ptr.get(), nullptr);
 	}
 }
@@ -43,7 +43,7 @@ TEST(Link, Size)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	std::unique_ptr<tree::Folder> folder { tree::ParseDisk(json) };
+	std::unique_ptr<tree::Folder> folder { tree::ParseDisk(json).get() };
 	EXPECT_NE(folder.get(), nullptr);
 
 	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z"));
@@ -74,7 +74,7 @@ TEST(Link, List)
 	rapidjson::Document json;
 	EXPECT_TRUE((rapidjson::ParseResult)json.Parse(data::json_str));
 
-	std::unique_ptr<tree::Folder> folder { tree::ParseDisk(json) };
+	std::unique_ptr<tree::Folder> folder { tree::ParseDisk(json).get() };
 	EXPECT_NE(folder.get(), nullptr);
 
 	auto link = dynamic_cast<tree::Link*>(folder->Find("/link-Z"));
