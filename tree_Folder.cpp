@@ -38,7 +38,7 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	out << "[" << Name() << "]" << std::endl;
 	for (auto node : _content)
 	{
-		auto * folder = dynamic_cast<const Folder*>(node);
+		auto folder = dynamic_cast<const Folder*>(node.get());
 		if (!bRecursive && folder)
 		{
 			out << offset << "    " << "[" << folder->Name() << "]" << std::endl;
@@ -51,12 +51,12 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	}
 }
 
-void Folder::Insert(Node * node)
+void Folder::Insert(std::shared_ptr<Node> node)
 {
 	_content.push_back(node);
 }
 
-Node * Folder::Find(const std::string & path) const
+std::shared_ptr<Node> Folder::Find(const std::string & path) const
 {
 	std::regex rgx { "/" };
 	auto start = path.begin();
@@ -66,7 +66,7 @@ Node * Folder::Find(const std::string & path) const
 	return Find({ start, path.end(), rgx, -1 });
 }
 
-Node * Folder::Find(std::sregex_token_iterator iter) const
+std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 {
 	if (iter == std::sregex_token_iterator())
 		return nullptr;
@@ -83,7 +83,7 @@ Node * Folder::Find(std::sregex_token_iterator iter) const
 	if (++iter == std::sregex_token_iterator())
 		return *itNode;
 
-	auto * folder = dynamic_cast<Folder*>(*itNode);
+	auto folder = dynamic_cast<Folder*>(*itNode);
 
 	return folder ? folder->Find(iter) : nullptr;
 }
@@ -117,7 +117,7 @@ std::shared_ptr<Folder> Folder::Parse(rapidjson::Value & json)
 		if (!pNode)
 			return nullptr;
 
-		auto *rawNode = pNode.get();
+		auto rawNode = pNode;
 		folder->Insert(rawNode);
 	}
 

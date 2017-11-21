@@ -39,18 +39,18 @@ std::optional<std::pair<Command, Options>> cmd::ParseOptions(const std::string &
 	return std::make_pair(command, Options { bFollow, bRecursive, path });
 }
 
-std::variant<std::string, tree::Node *> cmd::ParsePath(const std::string & path, tree::Node * root)
+std::variant<std::string, Node*> cmd::ParsePath(const std::string & path, Node * root)
 {
 	if (!path.empty() && path != "/")
 	{
-		auto * folder = dynamic_cast<Folder*>(root);
+		auto folder = dynamic_cast<Folder*>(root);
 		if (!folder)
 		{
 			//todo: nice error message
 			return "invalid root";
 		}
 
-		root = folder->Find(path);
+		root = folder->Find(path).get();
 		if (!root)
 		{
 			//todo: make nice error message

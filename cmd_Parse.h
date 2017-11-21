@@ -15,5 +15,5 @@ namespace cmd
 {
 	std::optional<std::pair<Command, Options>> ParseOptions(const std::string & line);
 
-	std::variant<std::string, tree::Node *> ParsePath(const std::string & path, tree::Node * root);
+	std::variant<std::string, Node*> ParsePath(const std::string & path, Node* root);
 }

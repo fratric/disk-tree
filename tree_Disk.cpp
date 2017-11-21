@@ -27,17 +27,17 @@ std::shared_ptr<tree::Folder> tree::ParseDisk(rapidjson::Value & json)
 		Folder * folder = folders.top();
 		folders.pop();
 
-		for (auto * node : folder->Content())
+		for (auto node : folder->Content())
 		{
-			if (auto * subfolder = dynamic_cast<Folder*>(node))
+			if (auto subfolder = dynamic_cast<Folder*>(node.get()))
 			{
 				folders.push(subfolder);
 			}
-			else if (auto * link = dynamic_cast<Link *>(node))
+			else if (auto link = dynamic_cast<Link*>(node.get()))
 			{
-				Node * node = root->Find(link->Path());
-				if (node)
-					link->Set(node);
+				auto ptr = root->Find(link->Path());
+				if (ptr)
+					link->Set(ptr);
 			}
 		}
 	}
