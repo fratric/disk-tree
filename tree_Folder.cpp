@@ -83,7 +83,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 	if (++iter == std::sregex_token_iterator())
 		return *itNode;
 
-	auto folder = dynamic_cast<Folder*>(*itNode);
+	auto folder = dynamic_cast<Folder*>((*itNode).get());
 
 	return folder ? folder->Find(iter) : nullptr;
 }
