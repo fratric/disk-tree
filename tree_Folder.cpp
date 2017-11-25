@@ -62,7 +62,7 @@ std::shared_ptr<Node> Folder::Find(const std::string & path) const
 	auto start = path.begin();
 	if (*start == '/')
 		++start;
-
+	
 	return Find({ start, path.end(), rgx, -1 });
 }
 
