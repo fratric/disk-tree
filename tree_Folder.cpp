@@ -71,7 +71,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 	if (iter == std::sregex_token_iterator())
 		return nullptr;
 
-	auto itNode = std::find_if(_content.begin(), _content.end(), [&iter](Node * node)
+	auto itNode = std::find_if(_content.begin(), _content.end(), [&iter](std::shared_ptr<Node> node)
 	{
 		return node->Name() == *iter;
 	}
@@ -81,7 +81,7 @@ std::shared_ptr<Node> Folder::Find(std::sregex_token_iterator iter) const
 		return nullptr;
 
 	if (++iter == std::sregex_token_iterator())
-		return *itNode;
+		return (*itNode);
 
 	auto folder = dynamic_cast<Folder*>((*itNode).get());
 
