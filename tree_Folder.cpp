@@ -17,10 +17,10 @@ tree::Size Folder::Size(bool bFollow, bool bRecursive) const
 		_content.begin(),
 		_content.end(),
 		.0,
-		[bFollow, bRecursive](tree::Size size, const Node * node)
+		[bFollow, bRecursive](tree::Size size, const std::shared_ptr<tree::Node> node)
 		{
-			auto * folder = dynamic_cast<const Folder*>(node);
-
+			auto * folder = dynamic_cast<const Folder*>(node.get());
+				
 			if (folder)
 			{
 				return size + (bRecursive ? folder->Size(bFollow, bRecursive) : 0.);
