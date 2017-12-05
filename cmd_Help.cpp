@@ -8,10 +8,11 @@
 using namespace cmd;
 using namespace tree;
 
-bool cmd::Help(tree::Node *, std::ostream & out)
-{
-	//todo: print command help
-	out << "help..." << std::endl;
-
-	return true;
+Handler cmd::Help(const Options & options) {
+	return [command = options.path](Node * node, std::ostream & out)
+	{
+		out << "help..." << std::endl;
+		return true;
+	};
 }
+
