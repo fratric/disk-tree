@@ -51,6 +51,7 @@ void Folder::List(bool bFollow, bool bRecursive, const std::string & offset, std
 	}
 }
 
+
 void Folder::Insert(std::shared_ptr<Node> node)
 {
 	_content.push_back(node);

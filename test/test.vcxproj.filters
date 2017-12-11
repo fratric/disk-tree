@@ -87,6 +87,12 @@
     <ClCompile Include="test_Size_object.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\cmd_Tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="test_Tree.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data.h">

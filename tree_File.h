@@ -12,7 +12,7 @@ namespace tree
 
 		tree::Size Size(bool /*bFollow*/, bool /*bRecursive*/) const override { return _size; }
 		void List(bool /*bFollow*/, bool /*bRecursive*/, const std::string & /*offset*/, std::ostream & out) const override;
-
+		
 		static std::shared_ptr<File> Parse(rapidjson::Value & json);
 
 	private:

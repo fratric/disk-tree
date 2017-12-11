@@ -161,6 +161,7 @@
     <ClCompile Include="..\cmd_Parse.cpp" />
     <ClCompile Include="..\cmd_Quit.cpp" />
     <ClCompile Include="..\cmd_Size.cpp" />
+    <ClCompile Include="..\cmd_Tree.cpp" />
     <ClCompile Include="..\tree_Disk.cpp" />
     <ClCompile Include="..\tree_File.cpp" />
     <ClCompile Include="..\tree_Folder.cpp" />
@@ -178,6 +179,7 @@
     <ClCompile Include="test_Quit.cpp" />
     <ClCompile Include="test_Size.cpp" />
     <ClCompile Include="test_Size_object.cpp" />
+    <ClCompile Include="test_Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\gtest\gtest.vcxproj">

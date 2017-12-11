@@ -3,6 +3,7 @@
 #include "tree_Folder.h"
 
 #include <regex>
+#include <iostream>
 
 #ifdef _DEBUG
 #define new DBG_NEW
@@ -13,7 +14,7 @@ using namespace tree;
 
 std::optional<std::pair<Command, Options>> cmd::ParseOptions(const std::string & line)
 {
-	std::regex rgx { "^(help|list|size|quit)(\\s-(recursive|follow)(\\s-(recursive|follow)){0,1}){0,1}(\\s+(.+)){0,1}$" };
+	std::regex rgx { "^(help|list|size|quit|tree)(\\s-(recursive|follow)(\\s-(recursive|follow)){0,1}){0,1}(\\s+(.+)){0,1}$" };
 	std::smatch match;
 	if (!std::regex_match(line, match, rgx))
 		return {};
@@ -62,6 +63,18 @@ std::optional<std::pair<Command, Options>> cmd::ParseOptions(const std::string &
 				return {};
 			}
 
+			path = match[7].str();
+		}
+	}
+	else if (match[1] == "tree") {
+		command = Command::Tree;
+
+		if (match[7].matched) {
+			if (match[7].str()[0] != '/') {
+				return {};
+			}
+
+			bRecursive = true;
 			path = match[7].str();
 		}
 	}

@@ -2,6 +2,8 @@
 #include "tree_File.h"
 
 #include <ostream>
+#include <iostream>
+
 
 #ifdef _DEBUG
 #define new DBG_NEW
@@ -11,6 +13,7 @@ using namespace tree;
 
 void tree::File::List(bool /*bFollow*/, bool /*bRecursive*/, const std::string & /*offset*/, std::ostream & out) const
 {
+
 	out << Name() << " [" << _size.toString() << "]" << std::endl;
 }
 
